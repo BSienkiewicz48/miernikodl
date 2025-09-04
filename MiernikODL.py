@@ -130,18 +130,18 @@ def dataframe_to_xlsx_bytes(df: pd.DataFrame) -> bytes:
 with st.sidebar:
     st.header("⚙️ Ustawienia")
     contact_email = st.text_input(
-        "Kontakt do User-Agent (zalecane przez Nominatim)",
-        placeholder="twoj.email@firma.pl"
+        "Kontakt do User-Agent (zalecane przez open street map)",
+        placeholder="można_wprowadzić.nie_trzeba@firma.pl"
     )
     country_code_in = st.text_input(
-        "Kod kraju dla geokodowania (np. pl). Zostaw puste, aby nie zawężać.",
-        value="pl"
+        "Kod kraju (np. pl). Zostaw puste, aby nie zawężać. Przy pustym wyszukiwanie trwa dłużej, jeśłi masz tylko lokalizacjie z PL to wpisz pl",
+        value=""
     ).strip().lower()
     country_code = country_code_in if country_code_in else None
     geocode_delay = st.number_input(
         "Pauza między zapytaniami geokodowania (sek.)",
         min_value=0.0, max_value=3.0, value=1.0, step=0.5,
-        help="Nominatim wymaga co najmniej ~1 s między zapytaniami."
+        help="Nominatim wymaga co najmniej ~1 s między zapytaniami żeby nie obciążać serwera."
     )
 
 uploaded = st.file_uploader("Wgraj plik XLSX z kolumną miejscowości", type=["xlsx"])
@@ -311,3 +311,4 @@ if compute_btn:
         file_name=file_name,
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     )
+
